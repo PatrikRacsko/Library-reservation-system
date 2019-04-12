@@ -28,15 +28,42 @@
             @yield('content')
         </main>
     </div>
-</body>
-<script>
+    <script>
+var nieco = document.getElementById("obsahEdit").value;
+var roulette=1;
+function asd(id)
+{
+    document.getElementById("obsahEdit").value = nieco;
+    document.getElementById(id).style.color = "grey";
+}
+function colorPanacik(id)
+{
+    document.getElementById(id).style.color = "green";
+}
 function incrementValue()
 {
-    var value = parseInt(document.getElementById('number').value, 10);
-    value = isNaN(value) ? 0 : value;
+    /*oFormObject = document.forms['myform_id'];
+    oformElement = oFormObject.elements['number'].value;
+    console.log(typeof oformElement);
+    var value = parseInt(oformElement);
+    console.log(value+" - "+typeof value);
     value++;
-    document.getElementById('number').value = value;
+    console.log(value+"LLKDASL "+pageNum);
+    var string = value.toString();
+    console.log(string+" - "+typeof string);
+    console.log("VALUE IS "+oFormObject.elements["number"].value);
+    oFormObject.elements["number"].value = string;
+    console.log("VALUE IS "+oFormObject.elements["number"].value);    */
+    var value = parseInt(document.getElementById('number').value);
+    console.log(value+" - "+typeof value);
+    value++;
+    console.log(value+" - "+typeof value);
+    var string = value.toString();
+    console.log(string+" - "+typeof string);
+    document.getElementById('number').setAttribute('value', string);
+    console.log("VALUE IS "+document.getElementById('number').value);
 }
+
 function decrementValue()
 {
     var value = parseInt(document.getElementById('number').value,10);
@@ -48,4 +75,5 @@ function decrementValue()
 
 }
 </script>
+</body>
 </html>

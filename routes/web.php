@@ -18,3 +18,12 @@ Route::post('/auth', 'LoginController@index')->name('login2');
 Route::post('/tryAgain', 'LoginController@restart');
 Route::post('/newAcc', 'LoginController@getCredentials')->name('newCredentials');
 Route::get('/edit', 'EditController@index');
+Route::get('/submit', 'EditController@saveInfo');
+Route::get('/editDetail/{id}', [
+    'uses' => 'EditController@getDetails',
+    'as' => 'editDetail'
+]);
+Route::get('/confirm', function() {
+    return view('confirmPages.confirm');
+});
+Route::get('/search', 'EditController@findBook');
