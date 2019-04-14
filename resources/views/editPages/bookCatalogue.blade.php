@@ -42,8 +42,13 @@ if(isset($_GET['goForward']))
           {!! Form::close() !!}
           <?php 
             $getFlag = Session::has('flag') ? Session::get('flag') : null;
+            $getQuery = Session::get('query');
             if($getFlag == 1)
-              echo "<a href='/edit'>Vrátiť zmeny</a>";
+            {
+              echo "<a href='/edit'>Zmazať filter</a>";
+              echo "<br>";
+              echo "<b style='font-size:20px;'>Hľadali ste: ".$getQuery."</b>";
+            }
           ?>
         </div>
         <div class="col-lg-9">
@@ -61,15 +66,16 @@ if(isset($_GET['goForward']))
                   </div>
                   <div class="card-body">
                       <img class="img-thumbnail" src="{{ $kniha->img_url }}" style="margin-left:40px;max-height: 250px;">
-                      <p class="card-text">Autor: {{$kniha->autor}}</p>
-                      <p class="card-text">Názov: {{$kniha->nazov}} </p>
-                      <p class="card-text">Vydavateľstvo: {{$kniha->vydavatelstvo}}</p>
-                      <p class="card-text">Rok vydania: {{$kniha->datum_vydania}} </p>
-                      <p class="card-text">Počet strán: {{$kniha->pocet_stran}}</p>
-                      <p class="card-text">Jazyk: {{$kniha->jazyk}}</p>
-                      <p class="card-text">ISBN: {{$kniha->ISBN}}</p>
-                      <p class="card-text">Rozmer: {{$kniha->rozmer}}</p>
-                      <p class="card-text" style="width: 250px;margin-left: auto; margin-right: auto;">Obsah: {{$kniha->obsah}}</p>
+                      <p style="visibility:hidden">{{$kniha->id_knihy}}</p>
+                      <p class="card-text"><b>Autor:</b> {{$kniha->autor}}</p>
+                      <p class="card-text"><b>Názov:</b> {{$kniha->nazov}} </p>
+                      <p class="card-text"><b>Vydavateľstvo:</b> {{$kniha->vydavatelstvo}}</p>
+                      <p class="card-text"><b>Rok vydania:</b> {{$kniha->datum_vydania}} </p>
+                      <p class="card-text"><b>Počet strán:</b> {{$kniha->pocet_stran}}</p>
+                      <p class="card-text"><b>Jazyk:</b> {{$kniha->jazyk}}</p>
+                      <p class="card-text"><b>ISBN:</b> {{$kniha->ISBN}}</p>
+                      <p class="card-text"><b>Rozmer:</b> {{$kniha->rozmer}}</p>
+                      <p class="card-text" style="width: 250px;margin-left: auto; margin-right: auto;"><b>Obsah:</b><br> {{$kniha->obsah}}</p>
                   </div>
                   <div class="card-footer">
                 <!--      <button class="btn btn-outline-primary">Edituj</button> -->
@@ -79,7 +85,7 @@ if(isset($_GET['goForward']))
                 </div>
                 @endforeach
                   @else
-                      <p>Nenasli sa produkty</p>
+                      <p>Nenašli sa knihy</p>
               @endif
             </div>
             <div class="col-sm-1" style="margin-left:35px;">

@@ -28,7 +28,10 @@ class LoginController extends Controller
         else
         {
             if($this->checkPassword($password, $response->citatels->citatel->heslo))
+            {
+                $request->session()->put('user', $email);
                 return redirect('/edit')->with('success', 'Úspešné prihlásenie');
+            }
             else
                 return view('loginPages.again');
         }
@@ -66,12 +69,14 @@ class LoginController extends Controller
             $permitted_chars = 'abcdefghijklmnopqrstuvwxyz';
             $newpassword = substr(str_shuffle($permitted_chars), 0, 5);
             $object->id = $nieco->citatels->citatel->id;
-            $object->name = $nieco->citatels->citatel->name;
+            $object->name = "";
             $object->priezvisko = $nieco->citatels->citatel->priezvisko;
             $object->email = $nieco->citatels->citatel->email;
             $object->datum_registracie = $nieco->citatels->citatel->datum_registracie;
             $object->heslo = $newpassword;
             $object->body = $nieco->citatels->citatel->body;
+            $object->id_citatela = $nieco->citatels->citatel->id_citatela;
+            $object->meno = $nieco->citatels->citatel->meno;
             $client2 = new SoapClient("http://labss2.fiit.stuba.sk/pis/ws/NotificationServices/Email?WSDL&readable");
             $notification = $client2->notify(array("team_id" => "034", "password" => "6rBoGU", "email" => $email, "subject" => "New password", "message" => $newpassword));
             $updateCredential = $client->update(array("team_id" => "034", "team_password" => "6rBoGU", "entity_id" => $object->id, "Citatel" => $object));

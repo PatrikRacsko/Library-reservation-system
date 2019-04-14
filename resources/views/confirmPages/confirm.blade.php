@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+<?php
+if(!isset($_GET['finalpage']))
+$_GET['finalpage'] = 1;
+?>
 <div class="card">
   <div class="card-header" style="background-color:#3972a4;">
     <b style="color:white; margin-left:45%">Zoznam editácií na spracovanie</b>
@@ -19,36 +23,39 @@
           </div>
         </div>
         <div class="col-lg-9">
-      <form action="/edit" method="GET">
         <div class="row">
           <div class="col-sm-1">
-            <button class="btn btn-outline-primary" onclick="decrementValue()">Späť</button>
+          <a href="/confirm?finalpage={{ $_GET['finalpage']-1 }}" class="btn btn-outline-primary">Späť</a>
           </div>
-              <div class="card-group">
-                <div class="card">
+            <div class="card-group">
+              @if(count($editacie)>0)
+                @foreach($editacie as $edit)
+                <div class="card" style="margin-left: 5%;width: 350px;">
                   <div class="card-header" style="background-color:#3972a4;">
                       <b style="color:white;">Editácia</b>
                   </div>
                   <div class="card-body">
-                      <b class="card-text">Autor: Ján Botto</b> <br>
-                      <b class="card-text">Názov: Traja Králi </b> <br>
-                      <b class="card-text">Meno: Patrik</b> <br>
-                      <b class="card-text">Priezvisko: Racsko</b> <br>
-                      <b class="card-text">Email: Patrik.Racsko@gmail.com</b> <br>
+                      <b class="card-text">Autor: {{ $edit->autor }}</b> <br>
+                      <b class="card-text">Názov: {{ $edit->nazov }} </b> <br>
+                      <b class="card-text">Meno: {{ $edit->meno }}</b> <br>
+                      <b class="card-text">Priezvisko: {{ $edit->priezvisko }}</b> <br>
+                      <b class="card-text">Email: {{ $edit->email }}</b> <br>
                   </div>
                   <div class="card-footer">
-                <!--      <button class="btn btn-outline-primary">Edituj</button> -->
-                      <a class="btn btn-outline-primary"> Spracovať</a>
+                      <a class="btn btn-outline-primary" href="{{ route('confirmDetail',['id' => $edit->id_editacie]) }}"> Spracovať</a>  
                   </div>
-                </div>
+              </div>
+              @endforeach
+                @else
+                  <p>Nenašli sa editácie</p>
+              @endif
             </div>
             <div class="col-sm-1" style="margin-left:35px;">
-              <button class="btn btn-outline-primary" onclick="incrementValue()" type="submit">Ďalej</button> 
-              <input style="visibility:hidden;" id="number" name="page" value="1">             
+              <a href="/confirm?finalpage={{ $_GET['finalpage']+1 }}" class="btn btn-outline-primary">Ďalej</a>
+              <input style="visibility:hidden;" name="finalpage" value="{{ $_GET['finalpage'] }}">       
             </div>
           </div>
     </div>
-    </form>
 </div>
 </div> 
 @endsection

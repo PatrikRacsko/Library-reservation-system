@@ -2,6 +2,7 @@
 
 @section('content')
 {!! Form::open(['action' => 'EditController@saveInfo', 'method' => 'GET'])!!}
+<input style="visibility:hidden;" name="id" value="{{$editKniha->id_knihy }}">
 <div class="card" style="max-width: 50%; margin-left:auto; margin-right:auto;">
 <div class="card-header" style="background-color:#3972a4;">
     <b style="color:white;">Požiadavka na zmenu knižného systému</b>
